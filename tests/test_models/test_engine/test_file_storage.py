@@ -113,3 +113,40 @@ class TestFileStorage(unittest.TestCase):
         with open("file.json", "r") as f:
             js = f.read()
         self.assertEqual(json.loads(string), json.loads(js))
+
+class TestFileStorage(unittest.TestCase):
+    @unittest.skipIf(storage._FileStorage__file_path != "file.json", "not testing file storage")
+    def test_get(self):
+        """Tests method to obtain an instance from file storage"""
+        storage.delete_all()  # Ensure the storage is empty before testing
+        storage.save()
+        
+        storage = FileStorage()
+        dic = {"name": "Vecindad"}  # Fixed dictionary syntax
+        instance = State(**dic)
+        storage.new(instance)
+        storage.save()
+        
+        get_instance = storage.get(State, instance.id)
+        self.assertEqual(get_instance, instance)
+
+    @unittest.skipIf(storage._FileStorage__file_path != "file.json", "not testing file storage")
+    def test_count(self):
+        """Tests count method in file storage"""
+        storage.delete_all()  # Ensure the storage is empty before testing
+        storage.save()
+        
+        storage = FileStorage()
+        dic = {"name": "Vecindad"}  # Fixed dictionary syntax
+        state = State(**dic)
+        storage.new(state)
+        dic = {"name": "Mexico"}  # Fixed dictionary syntax
+        city = City(**dic)
+        storage.new(city)
+        storage.save()
+        
+        c = storage.count()
+        self.assertEqual(len(storage.all()), c)
+
+if __name__ == "__main__":
+    unittest.main()
