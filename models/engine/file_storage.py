@@ -79,11 +79,11 @@ def get(self, cls, id):
         all_cls = models.storage.all(cls)
         for value in all_cls.values():
             if value.id == id:
-                return (value)
+                return(value)
 
-        return (None)
+        return(None)
 
-    def count(self, cls=None):
+ def count(self, cls=None):
         """
         Count the number of objects in storage.
         If cls is specified, count the number of objects of that class.
@@ -98,4 +98,4 @@ def get(self, cls, id):
         else:
             count = 0
 
-        return (count)
+        return(count)
