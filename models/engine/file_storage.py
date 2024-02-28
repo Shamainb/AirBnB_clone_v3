@@ -83,7 +83,7 @@ def get(self, cls, id):
 
         return(None)
 
- def count(self, cls=None):
+def count(self, cls=None):
         """
         Count the number of objects in storage.
         If cls is specified, count the number of objects of that class.
